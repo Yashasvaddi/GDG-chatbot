@@ -1,0 +1,7 @@
+faiss_cpu
+fastapi
+numpy
+pandas
+protobuf
+tqdm
+uvicorn

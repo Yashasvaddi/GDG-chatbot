@@ -47,9 +47,10 @@ def response_gen(query,top_k):
         {remember}'''
         response=model.generate_content(Question)
         print(response.text)
+        return response.text
     else:
         print(top_row['Answer'],similarity)
-
+        return top_row['Answer']
 
 if __name__=='__main__':
     ask="How can i help you?"
