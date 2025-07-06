@@ -41,7 +41,7 @@ def response_gen(query,top_k):
     '''
     remember="You are  not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
     
-    if similarity<75:
+    if similarity<95:
         Question=f'''{context}
         {example}
         {remember}'''
