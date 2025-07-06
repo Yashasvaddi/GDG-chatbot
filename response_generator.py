@@ -34,12 +34,12 @@ def response_gen(query,top_k):
     top_row=df.iloc[top_index]
     similarity=distances[0][0]*100
     context=f"You are a chatbot called 'ASKGDG'and you are here to assist people. Talk as if you are customer support executive and send response to the question {query} in max 2 lines. Dont say anything apart from the answer to the question."
-    example=f'''
+    example='''
         Question: What is GDG?
         Answer: GDG is a committee called as GOOGLE DEVELOPERS GROUP.
         Notes: No need to use 'Here is the answer to' or any such similar sentences.
     '''
-    remember=f"You are  not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
+    remember="You are  not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
     
     if similarity<75:
         Question=f'''{context}
