@@ -5,3 +5,4 @@ pandas
 protobuf
 tqdm
 uvicorn
+google-generativeai
