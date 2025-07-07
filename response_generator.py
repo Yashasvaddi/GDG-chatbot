@@ -5,6 +5,8 @@ import pandas as pd
 import faiss
 
 model_names = ["gemini-2.5-flash","gemini-2.5-pro","gemini-2.0-flash","gemini-1.5-flash","gemini-2.0-flash-exp"]
+i_str=os.getenv('i','0')
+i=int(i_str)
 
 genai.configure(api_key="AIzaSyC3vNkSnEJl-eFloSm9M4Bw0F_cJv2vusY")
 model=genai.GenerativeModel(model_names[i])
