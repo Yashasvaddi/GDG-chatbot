@@ -67,8 +67,9 @@ if __name__=='__main__':
             response_gen(query,1)
             count=count+1
     except Exception as e:
-        if i<len(model_names):
+        if i<len(model_names)-1:
             i=i+1
+            os.environ['i']=str(i)
             print(f"Switching model to {model_names[i]}")
         else:
             i=0
