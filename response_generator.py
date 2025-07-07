@@ -4,8 +4,10 @@ import numpy as np
 import pandas as pd
 import faiss
 
+model_names = ["gemini-2.5-flash","gemini-2.5-pro","gemini-2.0-flash","gemini-1.5-flash","gemini-2.0-flash-exp"]
+
 genai.configure(api_key="AIzaSyC3vNkSnEJl-eFloSm9M4Bw0F_cJv2vusY")
-model=genai.GenerativeModel('gemini-1.5-flash')
+model=genai.GenerativeModel(model_names[i])
 
 working_dir=os.path.dirname(os.path.abspath(__file__))
 database_path=os.path.join(working_dir,'database','embeddings.csv')
@@ -55,9 +57,16 @@ def response_gen(query,top_k):
 if __name__=='__main__':
     ask="How can i help you?"
     count=0
-    while True:
-        if count>=1:
-            ask="Is there anything else that i can help u with?"
-        query=input(f"{ask}\n")
-        response_gen(query,1)
-        count=count+1
+    try:
+        while True:
+            if count>=1:
+                ask="Is there anything else that i can help u with?"
+            query=input(f"{ask}\n")
+            response_gen(query,1)
+            count=count+1
+    except Exception as e:
+        if i<len(model_names):
+            i=i+1
+            print(f"Switching model to {model_names[i]}")
+        else:
+            i=0
