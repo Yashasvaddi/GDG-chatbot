@@ -5,7 +5,7 @@ import pandas as pd
 from tqdm import tqdm  
 import faiss
 
-genai.configure(api_key="AIzaSyC3vNkSnEJl-eFloSm9M4Bw0F_cJv2vusY")
+genai.configure(api_key="AIzaSyCrbEDZuPcBoAJ5fSOWYD2JOEhmAYueaOU")
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
