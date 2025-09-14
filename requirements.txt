@@ -3,6 +3,6 @@ fastapi
 numpy
 pandas
 protobuf
-tqdm
 uvicorn
 google-generativeai
+dotenv
