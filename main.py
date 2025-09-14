@@ -10,6 +10,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app=FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  # React/Frontend
+    "https://your-domain.com", # production domain
+    "*",  # (use "*" only if you want to allow all origins)
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
