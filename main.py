@@ -27,11 +27,6 @@ app.add_middleware(
 
 load_dotenv()
 
-gemini_api_key=os.getenv('gemini_api_key')
-
-genai.configure(api_key=gemini_api_key)
-model=genai.GenerativeModel('gemini-1.5-flash')
-
 working_dir=os.path.dirname(os.path.abspath(__file__))
 database_path=os.path.join(working_dir,'database','embeddings.csv')
 embedding_path=os.path.join(working_dir,'vectorstore','vectorembedding.npy')
@@ -53,6 +48,9 @@ def get_embedding(value):
 
 
 def response_gen(query,top_k):
+    gemini_api_key_embed=os.getenv('gemini_api_key_embed')
+    genai.configure(api_key=gemini_api_key_embed)
+    model=genai.GenerativeModel('gemini-1.5-flash')
     query_embedding=get_embedding(query).reshape(1,-1)
     distances,indices=index.search(query_embedding,top_k)
     top_index=indices[0][0]
@@ -67,6 +65,9 @@ def response_gen(query,top_k):
     remember="You are  not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
     
     if similarity<90:
+        gemini_api_key_resp=os.getenv('gemini_api_key_resp')
+        genai.configure(api_key=gemini_api_key_resp)
+        model=genai.GenerativeModel('gemini-1.5-flash')
         Question=f'''{context}
         {example}
         {remember}'''
