@@ -30,7 +30,7 @@ load_dotenv()
 gemini_api_key=os.getenv('gemini_api_key')
 
 genai.configure(api_key=gemini_api_key)
-model=genai.GenerativeModel('gemini-2.5-flash')
+model=genai.GenerativeModel('gemini-1.5-flash')
 
 working_dir=os.path.dirname(os.path.abspath(__file__))
 database_path=os.path.join(working_dir,'database','embeddings.csv')
