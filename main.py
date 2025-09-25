@@ -47,35 +47,44 @@ def get_embedding(value):
     return vector/np.linalg.norm(vector)
 
 
-def response_gen(query,top_k):
-    gemini_api_key_embed=os.getenv('gemini_api_key_embed')
+def response_gen(query, top_k):
+    # Embedding API key
+    gemini_api_key_embed = os.getenv('gemini_api_key_embed')
     genai.configure(api_key=gemini_api_key_embed)
-    model=genai.GenerativeModel('gemini-1.5-flash')
-    query_embedding=get_embedding(query).reshape(1,-1)
-    distances,indices=index.search(query_embedding,top_k)
-    top_index=indices[0][0]
-    top_row=df.iloc[top_index]
-    similarity=distances[0][0]*100
-    context=f"You are a chatbot called 'ASKGDG'and you are here to assist people. Talk as if you are customer support executive and send response to the question {query} in max 2 lines. Dont say anything apart from the answer to the question."
-    example='''
+
+    # Get embedding for query
+    query_embedding = get_embedding(query).reshape(1, -1)
+    distances, indices = index.search(query_embedding, top_k)
+    top_index = indices[0][0]
+    top_row = df.iloc[top_index]
+    similarity = distances[0][0] * 100
+
+    # Context for LLM
+    context = f"You are a chatbot called 'ASKGDG' and you are here to assist people. Talk as if you are customer support executive and send response to the question {query} in max 2 lines. Dont say anything apart from the answer to the question."
+    example = '''
         Question: What is GDG?
         Answer: GDG is a committee called as GOOGLE DEVELOPERS GROUP.
         Notes: No need to use 'Here is the answer to' or any such similar sentences.
     '''
-    remember="You are  not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
-    
-    if similarity<90:
-        gemini_api_key_resp=os.getenv('gemini_api_key_resp')
+    remember = "You are not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG."
+
+    if similarity < 90:
+        # Use response API key separately
+        gemini_api_key_resp = os.getenv('gemini_api_key_resp')
         genai.configure(api_key=gemini_api_key_resp)
-        model=genai.GenerativeModel('gemini-1.5-flash')
-        Question=f'''{context}
+
+        # Correct model name
+        model = genai.GenerativeModel("gemini-1.5-flash")
+
+        Question = f"""{context}
         {example}
-        {remember}'''
-        response=model.generate_content(Question)
+        {remember}"""
+        
+        response = model.generate_content(Question)
         print(response.text)
         return response.text
     else:
-        print(top_row['Answer'],similarity)
+        print(top_row['Answer'], similarity)
         return top_row['Answer']
 
 class chatbot(BaseModel):
