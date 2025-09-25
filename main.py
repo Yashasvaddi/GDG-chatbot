@@ -74,7 +74,7 @@ def response_gen(query, top_k):
         genai.configure(api_key=gemini_api_key_resp)
 
         # Correct model name
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash")
 
         Question = f"""{context}
         {example}
