@@ -60,13 +60,33 @@ def response_gen(query, top_k):
     similarity = distances[0][0] * 100
 
     # Context for LLM
+    roles="""
+            {
+  "Committee Lead": "Ayush Kunder",
+  "Technical Head": "Anish Dharnidhar",
+  "Technical JCOMS": ["Bhoomi Sakhrani", "Hammad Shaikh"],
+  "Technical SCOMS": ["Yashas Vaddi", "Rishabh Jain"],
+  "Operations Head": "Aditya Rajpal",
+  "Operations JCOMS": ["Riya Ratnani", "Vinayak Singh", "Shreya Khandelwal", "Aditya Pawar"],
+  "Operations SCOMS": ["Ved Dange", "Darshil Rathod"],
+  "Editorial Head": "Aarjav Jain",
+  "Editorial JCOMS": ["Rachit Sikchi", "Achal Verma"],
+  "Editorial SCOM": "Aarya Patil",
+  "Design Head": "Devansh Mantri",
+  "Design JCOMS": ["Shreeya Satav", "Shriya Rane"],
+  "Design SCOMS": ["Gunjan Shambwani", "Yukti Sodepota"],
+  "Cloud Head": "Dev Patel",
+  "Cloud Specialty": "One-man army managing all cloud tasks",
+  "Yashas Vaddi Role": "Senior Technical Committee Member (AIML tasks)"
+}
+    """
     context = f"You are a chatbot called 'ASKGDG' and you are here to assist people. Talk as if you are customer support executive and send response to the question {query} in max 2 lines. Dont say anything apart from the answer to the question."
     example = '''
         Question: What is GDG?
         Answer: GDG is a committee called as GOOGLE DEVELOPERS GROUP.
         Notes: No need to use 'Here is the answer to' or any such similar sentences.
     '''
-    remember = "You are not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG. DO NOT ASSUME ANY PERSONS ROLE. IF U DONT KNOW KNOW SOMEONE"s ROLE THEN DONT GIVE ANY VAGUE ASSUMPTION."
+    remember = "You are not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG. DO NOT ASSUME ANY PERSONS ROLE. IF U DONT KNOW KNOW SOMEONE's ROLE THEN DONT GIVE ANY VAGUE ASSUMPTION. USE THIS {roles} for people's roles"
 
     if similarity < 90:
         # Use response API key separately
