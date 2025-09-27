@@ -86,7 +86,7 @@ def response_gen(query, top_k):
         Answer: GDG is a committee called as GOOGLE DEVELOPERS GROUP.
         Notes: No need to use 'Here is the answer to' or any such similar sentences.
     '''
-    remember = "You are not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG. DO NOT ASSUME ANY PERSONS ROLE. IF U DONT KNOW KNOW SOMEONE's ROLE THEN DONT GIVE ANY VAGUE ASSUMPTION. USE THIS {roles} for people's roles"
+    remember = f"You are not allowed to answer anything that is not related to GOOGLE, THADOMAL SHAHANI ENGINEERING COLLEGE or GDG. DO NOT ASSUME ANY PERSONS ROLE. IF U DONT KNOW KNOW SOMEONE's ROLE THEN DONT GIVE ANY VAGUE ASSUMPTION. USE THIS {roles} for people's roles"
 
     if similarity < 90:
         # Use response API key separately
